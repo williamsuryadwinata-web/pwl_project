@@ -1,41 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-       <table>
-            <tr>
-                <td>Nama Lengkap</td>
-                <td>:</td>
-                <td><input type="text" name="nama_lengkap" size="30"></td>
-            </tr>
-            <tr>
-                <td>Nomor Induk Mahasiswa</td>
-                <td>:</td>
-                <td><input type="text" name="nim" size="30"></td>
-            </tr>
-            <tr>
-                <td>Nomor Induk Siswa Nasional</td>
-                <td>:</td>
-                <td><input type="text" name="nisn" size="30"></td>
-            </tr>
-            <tr>
-                <td>Tempat Lahir</td>
-                <td>:</td>
-                <td><input type="text" name="tempat_lahir" size="30"></td>
-            </tr>
-            <tr>
-                <td>Tanggal Lahir</td>
-                <td>:</td>
-                <td><input type="text" name="tanggal_lahir" size="30"></td>
-            </tr>
-            <tr>
-                <td valign="top">Alamat</td>
-                <td valign="top">:</td>
-                <td><textarea name="alamat" rows="4" cols="30"></textarea></td>
-            </tr>
-        </table>
-    </form>
-</body>
-</html>
+<form action="{{route('mahasiswa.edit', $mahasiswa->id)}}"  method="post">
+    @csrf
+    <input type="hidden" name="id" value="{{$mahasiswa->id}}">
+    <input type="hidden" name="_method" value="PUT">
+    <table>
+        <tr>
+            <td>Nama Lengkap</td>
+            <td>:</td>
+            <td><input type="text" name="Fullname" value="{{$mahasiswa->Fullname}}"></td>
+        </tr>
+        <tr>
+            <td>Nomor Induk Mahasiswa</td>
+            <td>:</td>
+            <td><input type="text" name="NIM" value="{{$mahasiswa->NIM}}"></td>
+        </tr>
+        <tr>
+            <td>Nomor Induk Siswa Nasional</td>
+            <td>:</td>
+            <td><input type="text" name="NIDN" value="{{$mahasiswa->NIDN}}"></td>
+        </tr>
+        <tr>
+            <td>Tempat Lahir</td>
+            <td>:</td>
+            <td><input type="text" name="tempat_Lahir" value="{{$mahasiswa->tempat_Lahir}}"></td>
+        </tr>
+        <tr>
+            <td>Tanggal Lahir</td>
+            <td>:</td>
+            <td><input type="text" name="Tanggal_Lahir" value="{{$mahasiswa->Tanggal_Lahir}}"></td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>:</td>
+            <td><textarea name="Alamat">{{$mahasiswa->Alamat}}</textarea></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="Update">
+                <input type="reset" value="Clear">
+            </td>
+        </tr>
+    </table>
+</form>

@@ -12,8 +12,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-    $mahasiswa = \App\Models\Mahasiswa::all(); 
-    return view('mahasiswa.index', compact('mahasiswa'));
+        return view('mahasiswa.index', [
+            'mahasiswa' => Mahasiswa::all()
+        ]);
     }
 
     /**
@@ -21,8 +22,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        // Mengarahkan ke file resources/views/mahasiswa/create.blade.php
-    return view('mahasiswa.create');
+        return view('mahasiswa.create', []);
     }
 
     /**
@@ -30,46 +30,51 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $data = $request->except('_token');
+
         Mahasiswa::create($data);
+
         return redirect()->action([MahasiswaController::class, 'index']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Mahasiswa $mahasiswa)
+    public function show($id)
     {
-        //
+        return Mahasiswa::find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-{
-    // Mencari data mahasiswa berdasarkan ID yang diklik
-    $mahasiswa = \App\Models\Mahasiswa::find($id);
-    
-    // Mengirim data tersebut ke halaman edit
-    return view('mahasiswa.edit', compact('mahasiswa'));
-}
+    {
+        return view('mahasiswa.edit', [
+            'mahasiswa' => Mahasiswa::find($id)
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token', 'id', '_method');
+
+        Mahasiswa::find($id)->update($data);
+
+        return redirect()->action([MahasiswaController::class, 'index']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Mahasiswa $mahasiswa)
-    {
-      Mahasiswa::find($id)->delete();
-      return redirect()->action([MahasiswaController::class,'index']);
-    }
+    public function destroy($id) // Tambahkan $id di sini
+{
+    // Cari data berdasarkan ID lalu hapus
+    \App\Models\Mahasiswa::find($id)->delete();
+
+    return redirect()->action([MahasiswaController::class, 'index']);
+}
 }
