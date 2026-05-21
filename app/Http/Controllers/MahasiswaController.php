@@ -30,6 +30,7 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
+        
         $data = $request->except('_token');
 
         Mahasiswa::create($data);
