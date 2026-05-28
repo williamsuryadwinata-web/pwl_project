@@ -4,7 +4,10 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\MatakuliahController;
+<<<<<<< HEAD
 use App\Http\Controllers\KelasController;
+=======
+>>>>>>> 54ba3d03909a3b542192e3e2704d4249e59c406b
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,6 +49,7 @@ Route::get('/matakuliah-create', [MatakuliahController::class, 'create'])->name(
 Route::post('/matakuliah', [MatakuliahController::class, 'store'])->name('matakuliah.save');
 Route::get('/matakuliah-edit/{id}', [MatakuliahController::class, 'edit'])->name('matakuliah.update');
 Route::put('/matakuliah/{id}', [MatakuliahController::class, 'update'])->name('matakuliah.edit');
+<<<<<<< HEAD
 Route::delete('/matakuliah/{id}', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');
 
 
@@ -53,3 +57,6 @@ Route::get('/kelas', [KelasController::class, 'index']);
 Route::get('/kelas/create', [KelasController::class, 'create']);
 Route::post('/kelas/store', [KelasController::class, 'store']);
 Route::delete('/kelas/{id}', [KelasController::class, 'destroy']);
+=======
+Route::delete('/matakuliah/{id}', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');
+>>>>>>> 54ba3d03909a3b542192e3e2704d4249e59c406b
