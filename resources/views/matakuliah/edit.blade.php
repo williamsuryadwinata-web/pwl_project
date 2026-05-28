@@ -1,32 +1,28 @@
-<a href={{route('matakuliah.add')}}>
-                <input type="button" value="Create">
-            </a>
-<table border="1">
-    <thead>
-        <th>No</th>
-        <th>Jurusan</th>
-        <th>Kode Mata Kuliah</th>
-        <th>Nama Mata Kuliah</th>
-        <th>Aksi</th>
-    </thead>
-    @foreach ($matakuliah as $m)
-    <tr>
-        <td>{{$m->id}}</td>
-        <td>{{$m->Jurusan}}</td>
-        <td>{{$m->KodeMK}}</td>
-        <td>{{$m->NamaMK}}</td>
-        <td>{{$m->created_at}}</td>
-        <td>
-            <a href={{route('matakuliah.update',$m->id)}}>
-                <input type="button" value="Edit">
-            </a>
-            <form action="{{route('matakuliah.delete', $m->id)}}"  method="post">
+<form action="{{route('matakuliah.edit', $matakuliah->id)}}"  method="post">
     @csrf
-    <input type="hidden" name="id" value="{{$m->id}}">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="submit" value="Delete">
+    <input type="hidden" name="id" value="{{$matakuliah->id}}">
+    <input type="hidden" name="_method" value="PUT">
+    <table>
+        <tr>
+            <td>Jurusan</td>
+            <td>:</td>
+            <td><input type="text" name="Jurusan" value="{{$matakuliah->Jurusan}}"></td>
+        </tr>
+        <tr>
+            <td>Kode Mata Kuliah</td>
+            <td>:</td>
+            <td><input type="text" name="KodeMK" value="{{$matakuliah->KodeMK}}"></td>
+        </tr>
+        <tr>
+            <td>Nama Mata Kuliah</td>
+            <td>:</td>
+            <td><input type="text" name="NamaMK" value="{{$matakuliah->NamaMK}}"></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="Update">
+                <input type="reset" value="Clear">
+            </td>
+        </tr>
+    </table>
 </form>
-        </td>
-    </tr>
-    @endforeach
-</table>
