@@ -28,7 +28,7 @@
             <tr>
                 <td>Tanggal Lahir</td>
                 <td>:</td>
-                <td><input type="text" name="Tanggal_Lahir"></td>
+                <td><input type="date" name="Tanggal_Lahir"></td>
             </tr>
  <tr>
                 <td>Pendidikan Terakhir</td>

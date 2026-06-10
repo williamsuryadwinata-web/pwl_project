@@ -97,6 +97,21 @@
                             </a>
                         </li>
 
+                        <li>
+                            <a class="dropdown-item"
+                            href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">
+                                Kelas
+                            </a>
+                        </li>
+
+                         <li>
+                            <a class="dropdown-item"
+                            href="{{ action([App\Http\Controllers\KrsController::class, 'index']) }}">
+                                Krs
+                            </a>
+                        </li>
+                        
+
                     </ul>
                 </li>
             </ul>
