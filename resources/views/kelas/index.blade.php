@@ -49,12 +49,7 @@
         }
 
         .top{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
             margin-bottom:25px;
-            flex-wrap:wrap;
-            gap:15px;
         }
 
         .btn-create{
@@ -66,28 +61,11 @@
             font-weight:600;
             transition:.3s;
             box-shadow:0 5px 15px rgba(37,99,235,.2);
+            display:inline-block;
         }
 
         .btn-create:hover{
             background:#1d4ed8;
-        }
-
-        .search{
-            display:flex;
-            gap:10px;
-        }
-
-        .search select,
-        .search input{
-            padding:11px 14px;
-            border:1px solid #d1d5db;
-            border-radius:8px;
-            background:white;
-            outline:none;
-        }
-
-        .search input{
-            width:240px;
         }
 
         .table-box{
@@ -169,16 +147,6 @@
         <a href="/kelas/create" class="btn-create">
             + Tambah Kelas
         </a>
-
-        <div class="search">
-
-            <select>
-                <option>Semua Data</option>
-            </select>
-
-            <input type="text" placeholder="Cari kelas...">
-
-        </div>
 
     </div>
 

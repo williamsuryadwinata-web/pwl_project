@@ -6,7 +6,6 @@
     <title>Data Mahasiswa</title>
 
     <style>
-
         *{
             margin:0;
             padding:0;
@@ -70,24 +69,6 @@
 
         .btn-create:hover{
             background:#1d4ed8;
-        }
-
-        .search{
-            display:flex;
-            gap:10px;
-        }
-
-        .search select,
-        .search input{
-            padding:11px 14px;
-            border:1px solid #d1d5db;
-            border-radius:8px;
-            outline:none;
-            background:white;
-        }
-
-        .search input{
-            width:240px;
         }
 
         .table-box{
@@ -156,7 +137,7 @@
             background:#dc2626;
         }
 
-        form{
+        .action-form{
             margin-top:6px;
         }
 
@@ -167,9 +148,7 @@
             color:#6b7280;
             font-size:14px;
         }
-
     </style>
-
 </head>
 
 <body>
@@ -183,25 +162,13 @@
     </div>
 
     <div class="top">
-
         <a href="{{ route('mahasiswa.add') }}" class="btn-create">
             + Tambah Mahasiswa
         </a>
-
-        <div class="search">
-            <select>
-                <option>Semua Data</option>
-            </select>
-
-            <input type="text" placeholder="Cari mahasiswa...">
         </div>
 
-    </div>
-
     <div class="table-box">
-
         <table>
-
             <thead>
                 <tr>
                     <th>No</th>
@@ -217,11 +184,8 @@
             </thead>
 
             <tbody>
-
             @forelse($mahasiswa as $m)
-
                 <tr>
-
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $m->Fullname }}</td>
                     <td>{{ $m->NIM }}</td>
@@ -232,15 +196,11 @@
                     <td>{{ $m->created_at->format('d-m-Y H:i') }}</td>
 
                     <td>
-
-                        {{-- Tombol Edit --}}
                         <a href="{{ route('mahasiswa.edit.form', $m->id) }}" class="btn-edit">
                             Edit
                         </a>
 
-                        {{-- Tombol Hapus --}}
-                        <form action="{{ route('mahasiswa.delete', $m->id) }}" method="POST">
-
+                        <form action="{{ route('mahasiswa.delete', $m->id) }}" method="POST" class="action-form">
                             @csrf
                             @method('DELETE')
 
@@ -250,27 +210,18 @@
                                 onclick="return confirm('Yakin ingin menghapus data ini?')">
                                 Hapus
                             </button>
-
                         </form>
-
                     </td>
-
                 </tr>
-
             @empty
-
                 <tr>
                     <td colspan="9" style="padding:25px;">
                         Belum ada data mahasiswa.
                     </td>
                 </tr>
-
             @endforelse
-
             </tbody>
-
         </table>
-
     </div>
 
     <div class="footer">

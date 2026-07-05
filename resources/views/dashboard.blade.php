@@ -130,15 +130,10 @@
             </ul>
 
             <div class="d-flex align-items-center gap-3">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Cari sesuatu..." style="border-radius: 8px; font-size: 14px;">
-                    <button class="btn btn-custom-blue btn-sm" type="submit">Cari</button>
-                </form>
-
                 @auth
                 <div class="d-flex align-items-center border-start ps-3 gap-3">
                     <span class="fw-semibold text-secondary" style="font-size: 14px;">
-                        {{ Auth::user()->name }}
+                        Halo, <span class="text-primary fw-bold">{{ Auth::user()->name }}</span> 👋
                     </span>
                     <form action="{{ route('logout') }}" method="POST" class="m-0">
                         @csrf
@@ -170,7 +165,7 @@
     </div>
 
     <div class="card-custom mt-5">
-        <div class="card-title-custom">Kampus Location</div>
+        <div class="card-title-custom">Campuses Location</div>
         <div class="d-flex align-items-start gap-2">
             <p class="m-0 text-secondary" style="font-size: 15px; line-height: 1.6;">
                 <a href="https://maps.google.com/?q=Jl.+Purnama+2,+Kecamatan+Pontianak+Selatan,+Kota+Pontianak,+Kalimantan+Barat+78121" target="_blank" class="text-decoration-none fw-semibold text-primary">
