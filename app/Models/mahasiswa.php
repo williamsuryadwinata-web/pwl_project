@@ -8,10 +8,10 @@ class Mahasiswa extends Model
 {
     protected $table = 'table_mahasiswa';
 
-     protected $fillable = [
+    protected $fillable = [
         'Fullname',
         'NIM',
-        'NIDN',
+        'NISN',
         'Tempat_Lahir',
         'Tanggal_Lahir',
         'Alamat'

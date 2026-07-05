@@ -12,7 +12,8 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('kode_krs');
-            $table->unsignedBigInteger('kode_kelas');
+            // Sudah diubah dari unsignedBigInteger menjadi string
+            $table->string('kode_kelas');
 
             $table->enum('status', [
                 'pending',

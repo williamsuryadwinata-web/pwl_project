@@ -1,62 +1,200 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah KRS</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#f4f6f9;
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+        }
+
+        .container-box{
+            max-width:850px;
+            margin:50px auto;
+        }
+
+        .card-custom{
+            background:#fff;
+            border:none;
+            border-radius:15px;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+            overflow:hidden;
+        }
+
+        .card-header{
+            background:#2563eb;
+            color:#fff;
+            padding:20px;
+            font-size:28px;
+            font-weight:700;
+        }
+
+        .card-body{
+            padding:35px;
+        }
+
+        label{
+            font-weight:600;
+            margin-bottom:8px;
+            color:#374151;
+        }
+
+        .form-control,
+        .form-select{
+            height:48px;
+            border-radius:10px;
+        }
+
+        .btn-save{
+            background:#2563eb;
+            color:#fff;
+            border:none;
+            padding:12px 28px;
+            border-radius:10px;
+            font-weight:600;
+        }
+
+        .btn-save:hover{
+            background:#1d4ed8;
+        }
+
+        .btn-reset{
+            padding:12px 28px;
+            border-radius:10px;
+            font-weight:600;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-    <h2>Tambah Data KRS</h2>
+<div class="container-box">
 
-    <form action="{{ route('krs.save') }}" method="POST">
-        @csrf
+<div class="card card-custom">
 
-        <div>
-            <label>Kode Mahasiswa</label><br>
-            <input type="number" name="kode_mahasiswa" required>
-        </div>
+<div class="card-header">
+Tambah Data KRS
+</div>
 
-        <br>
+<div class="card-body">
 
-        <div>
-            <label>Tahun Ajaran</label><br>
-            <input type="text" name="tahun_ajaran" required>
-        </div>
+<form action="{{ route('krs.save') }}" method="POST">
 
-        <br>
+@csrf
 
-        <div>
-            <label>Semester</label><br>
-            <select name="semester">
-                <option value="ganjil">Ganjil</option>
-                <option value="genap">Genap</option>
-            </select>
-        </div>
+<div class="row">
 
-        <br>
+<div class="col-md-6 mb-3">
 
-        <div>
-            <label>Status</label><br>
-            <select name="status">
-                <option value="pending">Pending</option>
-                <option value="approved">Approved</option>
-                <option value="partial">Partial</option>
-                <option value="declined">Declined</option>
-            </select>
-        </div>
+<label>Kode Mahasiswa</label>
 
-        <br>
+<input
+type="number"
+name="kode_mahasiswa"
+class="form-control"
+placeholder="Masukkan ID Mahasiswa"
+required>
 
-        <div>
-            <label>Total SKS</label><br>
-            <input type="number" name="total_sks" required>
-        </div>
+</div>
 
-        <br>
+<div class="col-md-6 mb-3">
 
-        <button type="submit">Simpan</button>
-        <a href="/krs">Kembali</a>
+<label>Tahun Ajaran</label>
 
-    </form>
+<input
+type="text"
+name="tahun_ajaran"
+class="form-control"
+placeholder="Contoh : 2025/2026"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Semester</label>
+
+<select
+name="semester"
+class="form-select">
+
+<option value="ganjil">Ganjil</option>
+<option value="genap">Genap</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Status</label>
+
+<select
+name="status"
+class="form-select">
+
+<option value="pending">Pending</option>
+<option value="approved">Approved</option>
+<option value="partial">Partial</option>
+<option value="declined">Declined</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label>Total SKS</label>
+
+<input
+type="number"
+name="total_sks"
+class="form-control"
+placeholder="Masukkan Total SKS"
+required>
+
+</div>
+
+</div>
+
+<button
+type="submit"
+class="btn btn-save">
+
+Simpan Data
+
+</button>
+
+<input
+type="reset"
+value="Reset"
+class="btn btn-secondary btn-reset">
+
+<a
+href="/krs"
+class="btn btn-outline-dark btn-reset">
+
+Kembali
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

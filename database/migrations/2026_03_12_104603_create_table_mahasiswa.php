@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('Fullname');
             $table->string('NIM')->unique();
-            $table->string('NIDN')->unique();
+            // Sudah diubah dari NIDN menjadi NISN agar sesuai dengan form/controller kamu
+            $table->string('NISN')->unique();
             $table->string('Tempat_Lahir');
             $table->date('Tanggal_Lahir');
             $table->text('Alamat');
