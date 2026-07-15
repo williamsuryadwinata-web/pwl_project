@@ -125,21 +125,26 @@ input:focus, select:focus{
             @csrf
 
             <div class="form-group">
-                <label>Kode KRS</label>
-                <input type="number" name="kode_krs" placeholder="Masukkan kode KRS" required>
+                <label>Pilih KRS</label>
+                <select name="kode_krs" required>
+                    <option value="">-- Pilih KRS --</option>
+                    @foreach($krs as $item)
+                        <option value="{{ $item->id }}">
+                            KRS {{ $item->id }} | {{ $item->tahun_ajaran }} | {{ ucfirst($item->semester) }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
-                <label>Kode Kelas</label>
-                <input type="text" name="kode_kelas" placeholder="Masukkan kode kelas" required>
-            </div>
-
-            <div class="form-group">
-                <label>Status</label>
-                <select name="status">
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="declined">Declined</option>
+                <label>Pilih Kelas</label>
+                <select name="kode_kelas" required>
+                    <option value="">-- Pilih Kelas --</option>
+                    @foreach($kelas as $item)
+                        <option value="{{ $item->kode_kelas }}">
+                            {{ $item->kode_kelas }} | {{ ucfirst($item->hari) }} | {{ $item->jam }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 

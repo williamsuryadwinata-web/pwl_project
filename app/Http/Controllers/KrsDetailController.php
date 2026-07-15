@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KrsDetail;
+use App\Models\Krs;
+use App\Models\Kelas;
 
 class KrsDetailController extends Controller
 {
@@ -15,17 +17,26 @@ class KrsDetailController extends Controller
 
     public function create()
     {
-        return view('krs_detail.create');
+        $krs = Krs::all();
+        $kelas = Kelas::all();
+
+        return view('krs_detail.create', compact('krs', 'kelas'));
     }
 
     public function store(Request $request)
     {
-        KrsDetail::create([
-            'kode_krs' => $request->kode_krs,
-            'kode_kelas' => $request->kode_kelas,
-            'status' => $request->status
+        $request->validate([
+            'kode_krs'   => 'required',
+            'kode_kelas' => 'required'
         ]);
 
-        return redirect('/krs-detail');
+        KrsDetail::create([
+            'kode_krs'   => $request->kode_krs,
+            'kode_kelas' => $request->kode_kelas,
+            'status'     => 'pending'
+        ]);
+
+        return redirect('/krs-detail')
+                ->with('success', 'Data KRS Detail berhasil ditambahkan.');
     }
 }

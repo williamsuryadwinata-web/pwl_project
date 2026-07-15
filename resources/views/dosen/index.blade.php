@@ -20,7 +20,7 @@
         }
 
         .container{
-            max-width:1400px;
+            max-width:1350px;
             margin:auto;
         }
 
@@ -49,7 +49,12 @@
         }
 
         .top{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
             margin-bottom:25px;
+            flex-wrap:wrap;
+            gap:15px;
         }
 
         .btn-create{
@@ -61,11 +66,23 @@
             font-weight:600;
             transition:.3s;
             box-shadow:0 5px 15px rgba(37,99,235,.2);
-            display:inline-block;
         }
 
         .btn-create:hover{
             background:#1d4ed8;
+        }
+
+        .search{
+            display:flex;
+            gap:10px;
+        }
+
+        .search input{
+            padding:11px 14px;
+            border:1px solid #d1d5db;
+            border-radius:8px;
+            outline:none;
+            width:240px;
         }
 
         .table-box{
@@ -85,7 +102,7 @@
         }
 
         thead th{
-            color:#fff;
+            color:white;
             padding:16px;
             font-size:14px;
             font-weight:600;
@@ -93,9 +110,8 @@
 
         tbody td{
             padding:16px;
-            border-bottom:1px solid #f1f1f1;
+            border-bottom:1px solid #eee;
             text-align:center;
-            color:#374151;
         }
 
         tbody tr:hover{
@@ -104,14 +120,12 @@
 
         .btn-edit{
             display:inline-block;
-            text-decoration:none;
             background:#2563eb;
             color:white;
+            text-decoration:none;
             padding:8px 16px;
             border-radius:6px;
             margin-bottom:8px;
-            transition:.3s;
-            font-size:14px;
         }
 
         .btn-edit:hover{
@@ -126,16 +140,10 @@
             padding:8px;
             border-radius:6px;
             cursor:pointer;
-            transition:.3s;
-            font-size:14px;
         }
 
         .btn-delete:hover{
             background:#dc2626;
-        }
-
-        form{
-            margin-top:6px;
         }
 
         .footer{
@@ -143,7 +151,6 @@
             justify-content:space-between;
             margin-top:20px;
             color:#6b7280;
-            font-size:14px;
         }
 
     </style>
@@ -154,15 +161,25 @@
 <div class="container">
 
     <div class="header">
+
         <h1>Data Dosen</h1>
+
         <div class="line"></div>
+
         <p>Kelola informasi dosen secara mudah, cepat, dan terstruktur.</p>
+
     </div>
 
     <div class="top">
+
         <a href="{{ route('dosen.add') }}" class="btn-create">
             + Tambah Dosen
         </a>
+
+        <div class="search">
+            <input type="text" placeholder="Cari dosen...">
+        </div>
+
     </div>
 
     <div class="table-box">
@@ -170,66 +187,82 @@
         <table>
 
             <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Lengkap</th>
-                    <th>Nomor Dosen</th>
-                    <th>Tempat Lahir</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Pendidikan Terakhir</th>
-                    <th>Jurusan</th>
-                    <th>Alamat</th>
-                    <th>Tanggal Dibuat</th>
-                    <th>Aksi</th>
-                </tr>
+
+            <tr>
+
+                <th>No</th>
+                <th>Nama Lengkap</th>
+                <th>ND</th>
+                <th>Tempat Lahir</th>
+                <th>Tanggal Lahir</th>
+                <th>Pendidikan</th>
+                <th>Jurusan</th>
+                <th>Alamat</th>
+                <th>Dibuat</th>
+                <th>Aksi</th>
+
+            </tr>
+
             </thead>
 
             <tbody>
 
-            @forelse($dosen as $m)
+            @forelse($dosen as $d)
 
-                <tr>
+            <tr>
 
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $m->Fullname }}</td>
-                    <td>{{ $m->ND }}</td>
-                    <td>{{ $m->Tempat_Lahir }}</td>
-                    <td>{{ $m->Tanggal_Lahir }}</td>
-                    <td>{{ $m->Pendidikan_Terakhir }}</td>
-                    <td>{{ $m->Jurusan }}</td>
-                    <td>{{ $m->Alamat }}</td>
-                    <td>{{ $m->created_at->format('d-m-Y H:i') }}</td>
+                <td>{{ $loop->iteration }}</td>
 
-                    <td>
+                <td>{{ $d->Fullname }}</td>
 
-                        <a href="{{ route('dosen.edit.form',$m->id) }}" class="btn-edit">
-                            Edit
-                        </a>
+                <td>{{ $d->ND }}</td>
 
-                        <form action="{{ route('dosen.delete',$m->id) }}" method="POST">
+                <td>{{ $d->Tempat_Lahir }}</td>
 
-                            @csrf
-                            @method('DELETE')
+                <td>{{ $d->Tanggal_Lahir }}</td>
 
-                            <button type="submit"
-                                    class="btn-delete"
-                                    onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                Hapus
-                            </button>
+                <td>{{ $d->Pendidikan_Terakhir }}</td>
 
-                        </form>
+                <td>{{ $d->Jurusan }}</td>
 
-                    </td>
+                <td>{{ $d->Alamat }}</td>
 
-                </tr>
+                <td>{{ $d->created_at->format('d-m-Y') }}</td>
+
+                <td>
+
+                    <a href="{{ route('dosen.edit.form',$d->id) }}" class="btn-edit">
+                        Edit
+                    </a>
+
+                    <form action="{{ route('dosen.delete',$d->id) }}" method="POST">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            class="btn-delete"
+                            onclick="return confirm('Yakin ingin menghapus data dosen ini?')">
+
+                            Hapus
+
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
 
             @empty
 
-                <tr>
-                    <td colspan="10" style="padding:25px;">
-                        Belum ada data dosen.
-                    </td>
-                </tr>
+            <tr>
+
+                <td colspan="10">
+                    Belum ada data dosen.
+                </td>
+
+            </tr>
 
             @endforelse
 
@@ -240,8 +273,11 @@
     </div>
 
     <div class="footer">
+
         <span>Total Data : {{ $dosen->count() }}</span>
+
         <span>School Management System © 2026</span>
+
     </div>
 
 </div>

@@ -23,7 +23,7 @@
         .navbar {
             padding: 15px 0;
         }
-        
+
         .nav-link {
             font-weight: 500;
             color: #4b5563 !important;
@@ -96,6 +96,10 @@
 
 <body>
 
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
+
 <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="/">
@@ -109,31 +113,66 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
+
                 <li class="nav-item">
                     <a class="nav-link active" href="/">Home</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        Menu Akademik
-                    </a>
-                    <ul class="dropdown-menu shadow border-0 mt-2" style="border-radius: 10px;">
-                        <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Data Mahasiswa</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Data Dosen</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Data Jurusan</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\KrsController::class, 'index']) }}">KRS</a></li>
-                        <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\KrsDetailController::class, 'index']) }}">KRS Detail</a></li>
-                    </ul>
-                </li>
+
+                @auth
+
+                    @if(Auth::user()->role == 'admin')
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Menu Academic
+                            </a>
+                            <ul class="dropdown-menu shadow border-0 mt-2" style="border-radius: 10px;">
+                                <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Data Mahasiswa</a></li>
+                                <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Data Dosen</a></li>
+                                <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Data Jurusan</a></li>
+                                <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
+                                <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\KrsController::class, 'index']) }}">KRS</a></li>
+                                <li><a class="dropdown-item py-2" href="{{ action([App\Http\Controllers\KrsDetailController::class, 'index']) }}">KRS Detail</a></li>
+                            </ul>
+                        </li>
+
+                    @elseif(Auth::user()->role == 'dosen')
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">
+                                Kelas
+                            </a>
+                        </li>
+
+                    @elseif(Auth::user()->role == 'mahasiswa')
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('krs.mahasiswa') }}">
+                                Daftar KRS
+                            </a>
+                        </li>
+
+                    @endif
+
+                @endauth
+
             </ul>
 
             <div class="d-flex align-items-center gap-3">
                 @auth
                 <div class="d-flex align-items-center border-start ps-3 gap-3">
                     <span class="fw-semibold text-secondary" style="font-size: 14px;">
-                        Halo, <span class="text-primary fw-bold">{{ Auth::user()->name }}</span> 👋
+                        Halo,
+                        @if(Auth::user()->role == 'admin')
+                            <span class="text-primary fw-bold">Admin</span>
+                        @elseif(Auth::user()->role == 'dosen')
+                            <span class="text-primary fw-bold">Dosen</span>
+                        @elseif(Auth::user()->role == 'mahasiswa')
+                            <span class="text-primary fw-bold">Mahasiswa</span>
+                        @endif
+                        👋
                     </span>
                     <form action="{{ route('logout') }}" method="POST" class="m-0">
                         @csrf

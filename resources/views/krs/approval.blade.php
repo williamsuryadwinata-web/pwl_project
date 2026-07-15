@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data KRS</title>
+    <title>Approval KRS</title>
 
     <style>
+
         *{
             margin:0;
             padding:0;
@@ -43,25 +44,6 @@
 
         .header p{
             color:#6b7280;
-        }
-
-        .top-button{
-            display:flex;
-            justify-content:flex-end;
-            margin-bottom:20px;
-        }
-
-        .btn-add{
-            background:#16a34a;
-            color:white;
-            padding:10px 18px;
-            text-decoration:none;
-            border-radius:8px;
-            font-weight:bold;
-        }
-
-        .btn-add:hover{
-            background:#15803d;
         }
 
         .table-box{
@@ -103,24 +85,46 @@
             font-weight:bold;
         }
 
-        .pending{
-            background:#f59e0b;
+        .aktif{
+            background:#10b981;
+        }
+
+        .nonaktif{
+            background:#ef4444;
         }
 
         .approved{
             background:#16a34a;
         }
 
-        .partial{
-            background:#3b82f6;
-        }
-
-        .declined{
+        .rejected{
             background:#dc2626;
         }
-    </style>
-</head>
 
+        .btn{
+            padding:8px 15px;
+            border:none;
+            border-radius:6px;
+            color:white;
+            cursor:pointer;
+            font-weight:bold;
+        }
+
+        .btn-approve{
+            background:#16a34a;
+        }
+
+        .btn-reject{
+            background:#dc2626;
+        }
+
+        form{
+            display:inline;
+        }
+
+    </style>
+
+</head>
 <body>
 
 @include('navbar')
@@ -128,26 +132,17 @@
 <div class="container">
 
     <div class="header">
-        <h1>Data KRS Mahasiswa</h1>
+        <h1>Approval KRS Mahasiswa</h1>
         <div class="line"></div>
-        <p>Kelola data KRS mahasiswa.</p>
-    </div>
-
-    <div class="top-button">
-        @if(auth()->user()->role == 'admin')
-            <a href="{{ route('krs.add') }}" class="btn-add">
-                + Tambah KRS
-            </a>
-        @elseif(auth()->user()->role == 'mahasiswa')
-            <a href="{{ route('krs.mahasiswa.create') }}" class="btn-add">
-                + Ajukan KRS
-            </a>
-        @endif
+        <p>Halaman persetujuan KRS oleh Dosen.</p>
     </div>
 
     <div class="table-box">
+
         <table>
+
             <thead>
+
                 <tr>
                     <th>No</th>
                     <th>Kode Mahasiswa</th>
@@ -155,45 +150,79 @@
                     <th>Semester</th>
                     <th>Status</th>
                     <th>Total SKS</th>
+                    <th>Aksi</th>
                 </tr>
+
             </thead>
+
             <tbody>
+
             @forelse($data as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->kode_mahasiswa }}</td>
-                    <td>{{ $item->tahun_ajaran }}</td>
-                    <td>{{ ucfirst($item->semester) }}</td>
-                    <td>
-                        @if($item->status=='approved')
-                            <span class="badge approved">
-                                Approved
-                            </span>
-                        @elseif($item->status=='declined')
-                            <span class="badge declined">
-                                Declined
-                            </span>
-                        @elseif($item->status=='partial')
-                            <span class="badge partial">
-                                Partial
-                            </span>
-                        @else
-                            <span class="badge pending">
-                                Pending
-                            </span>
-                        @endif
-                    </td>
-                    <td>{{ $item->total_sks }}</td>
-                </tr>
+
+            <tr>
+
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $item->kode_mahasiswa }}</td>
+                <td>{{ $item->tahun_ajaran }}</td>
+                <td>{{ ucfirst($item->semester) }}</td>
+
+                <td>
+
+                    @if($item->status=="Approved")
+                        <span class="badge approved">Approved</span>
+
+                    @elseif($item->status=="Rejected")
+                        <span class="badge rejected">Rejected</span>
+
+                    @elseif($item->status=="aktif")
+                        <span class="badge aktif">Aktif</span>
+
+                    @else
+                        <span class="badge nonaktif">{{ $item->status }}</span>
+                    @endif
+
+                </td>
+
+                <td>{{ $item->total_sks }}</td>
+
+                <td>
+
+                    <form action="{{ route('approval.approve',$item->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button class="btn btn-approve">
+                            Approve
+                        </button>
+                    </form>
+
+                    <form action="{{ route('approval.reject',$item->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button class="btn btn-reject">
+                            Reject
+                        </button>
+                    </form>
+
+                </td>
+
+            </tr>
+
             @empty
-                <tr>
-                    <td colspan="6">
-                        Belum ada data KRS.
-                    </td>
-                </tr>
+
+            <tr>
+
+                <td colspan="7">
+                    Belum ada data KRS.
+                </td>
+
+            </tr>
+
             @endforelse
+
             </tbody>
+
         </table>
+
     </div>
 
 </div>

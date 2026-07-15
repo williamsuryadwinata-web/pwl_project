@@ -3,198 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah KRS</title>
+    <title>Ajukan KRS</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-
         body{
             background:#f4f6f9;
             font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
         }
 
         .container-box{
-            max-width:850px;
+            max-width:700px;
             margin:50px auto;
         }
 
         .card-custom{
-            background:#fff;
             border:none;
             border-radius:15px;
             box-shadow:0 10px 30px rgba(0,0,0,.08);
-            overflow:hidden;
         }
 
         .card-header{
             background:#2563eb;
-            color:#fff;
-            padding:20px;
+            color:white;
             font-size:28px;
-            font-weight:700;
+            font-weight:bold;
+            padding:20px;
         }
 
         .card-body{
             padding:35px;
         }
 
-        label{
-            font-weight:600;
-            margin-bottom:8px;
-            color:#374151;
-        }
-
-        .form-control,
-        .form-select{
-            height:48px;
-            border-radius:10px;
-        }
-
         .btn-save{
             background:#2563eb;
-            color:#fff;
-            border:none;
-            padding:12px 28px;
-            border-radius:10px;
-            font-weight:600;
+            color:white;
         }
 
         .btn-save:hover{
             background:#1d4ed8;
+            color:white;
         }
-
-        .btn-reset{
-            padding:12px 28px;
-            border-radius:10px;
-            font-weight:600;
-        }
-
     </style>
-
 </head>
 
 <body>
 
 <div class="container-box">
 
-<div class="card card-custom">
+    <div class="card card-custom">
 
-<div class="card-header">
-Tambah Data KRS
-</div>
+        <div class="card-header">
+            Pengajuan KRS
+        </div>
 
-<div class="card-body">
+        <div class="card-body">
 
-<form action="{{ route('krs.save') }}" method="POST">
+            <form action="{{ route('krs.mahasiswa.store') }}" method="POST">
 
-@csrf
+                @csrf
 
-<div class="row">
+                <div class="mb-3">
+                    <label class="form-label">Nama Mahasiswa</label>
+                    <input
+                        type="text"
+                        name="nama_mahasiswa"
+                        class="form-control"
+                        placeholder="Masukkan nama mahasiswa"
+                        required>
+                </div>
 
-<div class="col-md-6 mb-3">
+                <div class="mb-3">
+                    <label class="form-label">Tahun Ajaran</label>
 
-<label>Kode Mahasiswa</label>
+                    <input
+                        type="text"
+                        name="tahun_ajaran"
+                        class="form-control"
+                        placeholder="2025/2026"
+                        required>
+                </div>
 
-<input
-type="number"
-name="kode_mahasiswa"
-class="form-control"
-placeholder="Masukkan ID Mahasiswa"
-required>
+                <div class="mb-3">
+                    <label class="form-label">Semester</label>
 
-</div>
+                    <select name="semester" class="form-select">
+                        <option value="ganjil">Ganjil</option>
+                        <option value="genap">Genap</option>
+                    </select>
+                </div>
 
-<div class="col-md-6 mb-3">
+                <div class="mb-4">
+                    <label class="form-label">Total SKS</label>
 
-<label>Tahun Ajaran</label>
+                    <input
+                        type="number"
+                        name="total_sks"
+                        class="form-control"
+                        required>
+                </div>
 
-<input
-type="text"
-name="tahun_ajaran"
-class="form-control"
-placeholder="Contoh : 2025/2026"
-required>
+                <button class="btn btn-save">
+                    Ajukan KRS
+                </button>
 
-</div>
+                <a href="{{ route('krs.mahasiswa') }}" class="btn btn-secondary">
+                    Kembali
+                </a>
 
-<div class="col-md-6 mb-3">
+            </form>
 
-<label>Semester</label>
+        </div>
 
-<select
-name="semester"
-class="form-select">
-
-<option value="ganjil">Ganjil</option>
-<option value="genap">Genap</option>
-
-</select>
-
-</div>
-
-<div class="col-md-6 mb-3">
-
-<label>Status</label>
-
-<select
-name="status"
-class="form-select">
-
-<option value="pending">Pending</option>
-<option value="approved">Approved</option>
-<option value="partial">Partial</option>
-<option value="declined">Declined</option>
-
-</select>
+    </div>
 
 </div>
-
-<div class="col-md-6 mb-4">
-
-<label>Total SKS</label>
-
-<input
-type="number"
-name="total_sks"
-class="form-control"
-placeholder="Masukkan Total SKS"
-required>
-
-</div>
-
-</div>
-
-<button
-type="submit"
-class="btn btn-save">
-
-Simpan Data
-
-</button>
-
-<input
-type="reset"
-value="Reset"
-class="btn btn-secondary btn-reset">
-
-<a
-href="/krs"
-class="btn btn-outline-dark btn-reset">
-
-Kembali
-
-</a>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

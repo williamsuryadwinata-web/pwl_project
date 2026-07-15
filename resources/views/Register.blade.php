@@ -8,118 +8,110 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
         }
 
-        body {
-            background: #f4f6f9;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 0;
+        body{
+            background:#f4f6f9;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:40px 0;
         }
 
-        .register-container {
-            max-width: 450px;
-            width: 100%;
-            padding: 20px;
+        .register-container{
+            max-width:450px;
+            width:100%;
+            padding:20px;
         }
 
-        /* CARD STYLE (Sama persis dengan halaman Login & Tambah Data) */
-        .card {
-            background: white;
-            border: none;
-            padding: 35px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
+        .card{
+            background:#fff;
+            border:none;
+            padding:35px 30px;
+            border-radius:16px;
+            box-shadow:0 10px 25px rgba(0,0,0,.06);
         }
 
-        .logo {
-            width: 90px;
-            height: 90px;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto 20px auto;
+        .logo{
+            width:90px;
+            height:90px;
+            object-fit:contain;
+            display:block;
+            margin:0 auto 20px;
         }
 
-        .title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1f2937;
-            text-align: center;
+        .title{
+            font-size:28px;
+            font-weight:700;
+            color:#1f2937;
+            text-align:center;
         }
 
-        .subtitle {
-            color: #6b7280;
-            text-align: center;
-            font-size: 14px;
-            margin-top: 5px;
-            margin-bottom: 30px;
+        .subtitle{
+            color:#6b7280;
+            text-align:center;
+            font-size:14px;
+            margin-top:5px;
+            margin-bottom:30px;
         }
 
-        /* FORM INPUTS */
-        .form-label {
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 8px;
-            font-size: 14px;
+        .form-label{
+            font-weight:600;
+            color:#374151;
+            margin-bottom:8px;
+            font-size:14px;
         }
 
-        .form-control {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid #d1d5db;
-            outline: none;
-            transition: .2s;
-            font-size: 14px;
+        .form-control{
+            width:100%;
+            padding:12px 14px;
+            border-radius:10px;
+            border:1px solid #d1d5db;
+            outline:none;
+            transition:.2s;
+            font-size:14px;
         }
 
-        .form-control:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
-            background-color: #fff;
+        .form-control:focus{
+            border-color:#2563eb;
+            box-shadow:0 0 0 3px rgba(37,99,235,.15);
         }
 
-        /* BUTTON (Warna biru premium konsisten) */
-        .btn-register {
-            background: #2563eb;
-            color: white;
-            padding: 12px 18px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: .3s;
-            font-size: 15px;
-            margin-top: 10px;
+        .btn-register{
+            background:#2563eb;
+            color:#fff;
+            padding:12px;
+            border:none;
+            border-radius:10px;
+            font-weight:600;
+            margin-top:10px;
         }
 
-        .btn-register:hover {
-            background: #1d4ed8;
-            color: white;
+        .btn-register:hover{
+            background:#1d4ed8;
+            color:#fff;
         }
 
-        .login-link {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 14px;
-            color: #4b5563;
+        .login-link{
+            text-align:center;
+            margin-top:25px;
+            font-size:14px;
         }
 
-        .login-link a {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: 600;
+        .login-link a{
+            text-decoration:none;
+            color:#2563eb;
+            font-weight:600;
         }
 
-        .login-link a:hover {
-            text-decoration: underline;
+        .login-link a:hover{
+            text-decoration:underline;
         }
     </style>
 </head>
@@ -128,50 +120,94 @@
 <div class="register-container">
 
     <div class="card">
-        <img src="{{ asset('images/ITB-SS.jpg') }}" class="logo" alt="Logo ITBSS">
+
+        <img src="{{ asset('images/ITB-SS.jpg') }}" class="logo">
 
         <div class="title">Daftar Akun</div>
-        <div class="subtitle">Buat akun baru untuk mengakses Sistem Informasi Akademik</div>
+
+        <div class="subtitle">
+            Buat akun baru untuk mengakses Sistem Informasi Akademik
+        </div>
 
         @if($errors->any())
-            <div class="alert alert-danger py-2 px-3 mb-3" style="border-radius: 8px; font-size: 14px;">
+            <div class="alert alert-danger">
                 {{ $errors->first() }}
             </div>
         @endif
 
         <form action="{{ route('register') }}" method="POST">
+
             @csrf
 
             <div class="mb-3">
                 <label class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" name="name" placeholder="Masukkan nama lengkap anda" value="{{ old('name') }}" required>
+                <input
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    value="{{ old('name') }}"
+                    placeholder="Masukkan nama lengkap"
+                    required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Masukkan email anda" value="{{ old('email') }}" required>
+                <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    value="{{ old('email') }}"
+                    placeholder="Masukkan email"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Role</label>
+
+                <select class="form-control" name="role" required>
+                    <option value="">-- Pilih Role --</option>
+                    <option value="admin">Admin</option>
+                    <option value="mahasiswa">Mahasiswa</option>
+                    <option value="dosen">Dosen</option>
+                </select>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Masukkan password" required>
+                <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    placeholder="Masukkan password"
+                    required>
             </div>
 
             <div class="mb-4">
                 <label class="form-label">Konfirmasi Password</label>
-                <input type="password" class="form-control" name="password_confirmation" placeholder="Ulangi password anda" required>
+                <input
+                    type="password"
+                    class="form-control"
+                    name="password_confirmation"
+                    placeholder="Ulangi password"
+                    required>
             </div>
 
-            <button type="submit" class="btn btn-register w-100">Register</button>
+            <button type="submit" class="btn btn-register w-100">
+                Register
+            </button>
+
         </form>
 
         <div class="login-link">
-            Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a>
+            Sudah punya akun?
+            <a href="{{ route('login') }}">Login di sini</a>
         </div>
+
     </div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

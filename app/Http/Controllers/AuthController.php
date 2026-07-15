@@ -34,15 +34,17 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+            'role' => 'required|in:admin,mahasiswa,dosen',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
 
-        return redirect('/login')->with('success', 'Register berhasil, silakan login.');
+        return redirect()->route('login')->with('success', 'Register berhasil, silakan login.');
     }
 
     /**
@@ -59,7 +61,25 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->intended('/mahasiswa');
+            $user = Auth::user();
+
+            if ($user->role == 'admin') {
+                return redirect()->route('dashboard');
+            }
+
+            if ($user->role == 'mahasiswa') {
+                return redirect()->route('krs.mahasiswa');
+            }
+
+            if ($user->role == 'dosen') {
+                return redirect()->route('approval.index');
+            }
+
+            Auth::logout();
+
+            return redirect()->route('login')->withErrors([
+                'email' => 'Role pengguna tidak valid.',
+            ]);
         }
 
         return back()->withErrors([

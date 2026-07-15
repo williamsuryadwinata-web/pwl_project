@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,6 @@
 
         body{
             background:#f4f6f9;
-            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
         }
 
         .container-box{
@@ -19,47 +18,59 @@
             margin:50px auto;
         }
 
-        .card-custom{
+        .title{
+            font-size:38px;
+            font-weight:bold;
+            color:#1f2937;
+        }
+
+        .line{
+            width:70px;
+            height:4px;
+            background:#2563eb;
+            border-radius:10px;
+            margin:15px 0 25px;
+        }
+
+        .card{
             border:none;
-            border-radius:15px;
-            overflow:hidden;
-            box-shadow:0 10px 30px rgba(0,0,0,.08);
+            border-radius:18px;
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
         }
 
         .card-header{
             background:#2563eb;
             color:white;
-            font-size:28px;
+            font-size:22px;
             font-weight:bold;
-            padding:20px;
+            border-radius:18px 18px 0 0 !important;
+            padding:18px;
         }
 
         .card-body{
-            padding:35px;
+            padding:30px;
         }
 
-        label{
+        .form-label{
             font-weight:600;
             color:#374151;
-            margin-bottom:8px;
         }
 
         .form-control{
-            height:48px;
             border-radius:10px;
+            padding:10px;
         }
 
-        textarea.form-control{
-            height:120px;
+        textarea{
+            resize:none;
         }
 
         .btn-update{
             background:#2563eb;
             color:white;
             border:none;
-            padding:12px 30px;
-            border-radius:10px;
-            font-weight:600;
+            border-radius:8px;
+            padding:10px 25px;
         }
 
         .btn-update:hover{
@@ -67,9 +78,29 @@
         }
 
         .btn-reset{
-            border-radius:10px;
-            padding:12px 30px;
-            font-weight:600;
+            background:#6b7280;
+            color:white;
+            border:none;
+            border-radius:8px;
+            padding:10px 25px;
+        }
+
+        .btn-reset:hover{
+            background:#4b5563;
+        }
+
+        .btn-back{
+            background:#198754;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+            padding:10px 25px;
+            display:inline-block;
+        }
+
+        .btn-back:hover{
+            background:#157347;
+            color:white;
         }
 
     </style>
@@ -80,103 +111,105 @@
 
 <div class="container-box">
 
-<div class="card card-custom">
+    <h1 class="title">Edit Dosen</h1>
 
-<div class="card-header">
-Edit Data Dosen
-</div>
+    <div class="line"></div>
 
-<div class="card-body">
+    <div class="card">
 
-<form action="{{ route('dosen.edit',$dosen->id) }}" method="POST">
+        <div class="card-header">
+            Form Edit Dosen
+        </div>
 
-@csrf
-@method('PUT')
+        <div class="card-body">
 
-<input type="hidden" name="id" value="{{ $dosen->id }}">
+            <form action="{{ route('dosen.edit',$dosen->id) }}" method="POST">
 
-<div class="row">
+                @csrf
+                @method('PUT')
 
-<div class="col-md-6 mb-3">
-<label>Nama Lengkap</label>
-<input
-type="text"
-name="Fullname"
-class="form-control"
-value="{{ $dosen->Fullname }}">
-</div>
+                <input type="hidden" name="id" value="{{ $dosen->id }}">
 
-<div class="col-md-6 mb-3">
-<label>Nomor Dosen</label>
-<input
-type="text"
-name="ND"
-class="form-control"
-value="{{ $dosen->ND }}">
-</div>
+                <div class="mb-3">
+                    <label class="form-label">Nama Lengkap</label>
+                    <input type="text"
+                           class="form-control"
+                           name="Fullname"
+                           value="{{ $dosen->Fullname }}"
+                           required>
+                </div>
 
-<div class="col-md-6 mb-3">
-<label>Tempat Lahir</label>
-<input
-type="text"
-name="Tempat_Lahir"
-class="form-control"
-value="{{ $dosen->Tempat_Lahir }}">
-</div>
+                <div class="mb-3">
+                    <label class="form-label">Nomor Dosen (ND)</label>
+                    <input type="text"
+                           class="form-control"
+                           name="ND"
+                           value="{{ $dosen->ND }}"
+                           required>
+                </div>
 
-<div class="col-md-6 mb-3">
-<label>Tanggal Lahir</label>
-<input
-type="date"
-name="Tanggal_Lahir"
-class="form-control"
-value="{{ $dosen->Tanggal_Lahir }}">
-</div>
+                <div class="mb-3">
+                    <label class="form-label">Tempat Lahir</label>
+                    <input type="text"
+                           class="form-control"
+                           name="Tempat_Lahir"
+                           value="{{ $dosen->Tempat_Lahir }}"
+                           required>
+                </div>
 
-<div class="col-md-6 mb-3">
-<label>Pendidikan Terakhir</label>
-<input
-type="text"
-name="Pendidikan_Terakhir"
-class="form-control"
-value="{{ $dosen->Pendidikan_Terakhir }}">
-</div>
+                <div class="mb-3">
+                    <label class="form-label">Tanggal Lahir</label>
+                    <input type="date"
+                           class="form-control"
+                           name="Tanggal_Lahir"
+                           value="{{ $dosen->Tanggal_Lahir }}"
+                           required>
+                </div>
 
-<div class="col-md-6 mb-3">
-<label>Jurusan</label>
-<input
-type="text"
-name="Jurusan"
-class="form-control"
-value="{{ $dosen->Jurusan }}">
-</div>
+                <div class="mb-3">
+                    <label class="form-label">Pendidikan Terakhir</label>
+                    <input type="text"
+                           class="form-control"
+                           name="Pendidikan_Terakhir"
+                           value="{{ $dosen->Pendidikan_Terakhir }}"
+                           required>
+                </div>
 
-<div class="col-12 mb-4">
-<label>Alamat</label>
+                <div class="mb-3">
+                    <label class="form-label">Jurusan</label>
+                    <input type="text"
+                           class="form-control"
+                           name="Jurusan"
+                           value="{{ $dosen->Jurusan }}"
+                           required>
+                </div>
 
-<textarea
-name="Alamat"
-class="form-control">{{ $dosen->Alamat }}</textarea>
+                <div class="mb-4">
+                    <label class="form-label">Alamat</label>
+                    <textarea
+                        class="form-control"
+                        rows="4"
+                        name="Alamat"
+                        required>{{ $dosen->Alamat }}</textarea>
+                </div>
 
-</div>
+                <a href="{{ route('dosen.index') }}" class="btn-back">
+                    ← Kembali
+                </a>
 
-</div>
+                <button type="reset" class="btn btn-reset">
+                    Reset
+                </button>
 
-<button type="submit" class="btn btn-update">
-Update Data
-</button>
+                <button type="submit" class="btn btn-update">
+                    💾 Update Data
+                </button>
 
-<input type="reset" value="Reset" class="btn btn-secondary btn-reset">
+            </form>
 
-<a href="{{ route('dosen.index') }}" class="btn btn-outline-dark btn-reset">
-Kembali
-</a>
+        </div>
 
-</form>
-
-</div>
-
-</div>
+    </div>
 
 </div>
 
