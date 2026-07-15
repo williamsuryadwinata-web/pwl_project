@@ -15,4 +15,13 @@ class Krs extends Model
         'status',
         'total_sks'
     ];
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(
+            Mahasiswa::class,
+            'kode_mahasiswa',
+            'id'
+        );
+    }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar KRS</title>
+    <title>Tambah KRS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .container-box {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 50px auto;
         }
         .card-custom {
@@ -32,98 +32,59 @@ use Illuminate\Support\Facades\Auth;
             font-weight: bold;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         .card-body {
             padding: 35px;
-        }
-        .btn-add {
-            background: #ffffff;
-            color: #2563eb;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        .btn-add:hover {
-            background: #f0f4ff;
-            color: #1d4ed8;
         }
     </style>
 </head>
 <body>
 
 <div class="container-box">
-    
-    {{-- Notifikasi Sukses/Gagal jika ada --}}
-    @if(session('success'))
-        <div class="alert alert-success border-0 shadow-sm mb-3">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger border-0 shadow-sm mb-3">
-            {{ session('error') }}
-        </div>
-    @endif
-
     <div class="card card-custom">
         <div class="card-header-custom">
-            <span>Daftar Pengajuan KRS</span>
-            
-            {{-- KONDISI TOMBOL SESUAI ROLE --}}
-            @if(Auth::user()->role == 'admin')
-                <a href="{{ route('krs.add') }}" class="btn-add">
-                    + Tambah KRS
-                </a>
-            @elseif(Auth::user()->role == 'mahasiswa')
-                <a href="{{ route('krs.mahasiswa.create') }}" class="btn-add">
-                    + Ajukan KRS
-                </a>
-            @endif
+            <span>Form Tambah KRS</span>
         </div>
 
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>No</th>
-                            <th>Tahun Ajaran</th>
-                            <th>Semester</th>
-                            <th>Total SKS</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($data as $key => $item)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->tahun_ajaran }}</td>
-                                <td class="text-capitalize">{{ $item->semester }}</td>
-                                <td>{{ $item->total_sks }} SKS</td>
-                                <td>
-                                    @if($item->status == 'pending')
-                                        <span class="badge bg-warning text-dark text-capitalize">{{ $item->status }}</span>
-                                    @elseif($item->status == 'Approved' || $item->status == 'approved')
-                                        <span class="badge bg-success text-capitalize">{{ $item->status }}</span>
-                                    @else
-                                        <span class="badge bg-danger text-capitalize">{{ $item->status }}</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                -- Mencegah rusaknya grid tabel jika kolom berjumlah 5 --
-                                <td colspan="5" class="text-center text-muted py-4">Belum ada data KRS.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+            <form action="{{ route('krs.store') }}" method="POST">
+                @csrf
+
+                <div class="mb-3">
+                    <label class="form-label">Nama Mahasiswa</label>
+                    <select name="kode_mahasiswa" class="form-select" required>
+                        <option value="">-- Pilih Mahasiswa --</option>
+                        @foreach($mahasiswa as $m)
+                            <option value="{{ $m->id }}">
+                                {{ $m->Fullname }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Tahun Ajaran</label>
+                    <input type="text" name="tahun_ajaran" class="form-control" placeholder="Contoh: 2025/2026" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Semester</label>
+                    <select name="semester" class="form-select" required>
+                        <option value="">-- Pilih Semester --</option>
+                        <option value="ganjil">Ganjil</option>
+                        <option value="genap">Genap</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Total SKS</label>
+                    <input type="number" name="total_sks" class="form-control" placeholder="Masukkan total SKS" required>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ route('krs.index') }}" class="btn btn-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-primary" style="background: #2563eb; border: none;">Simpan KRS</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

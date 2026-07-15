@@ -112,8 +112,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // KRS
     // =======================
     Route::get('/krs', [KrsController::class, 'index'])->name('krs.index');
-    Route::get('/krs-create', [KrsController::class, 'create'])->name('krs.add');
-    Route::post('/krs-store', [KrsController::class, 'store'])->name('krs.save');
     Route::get('/krs-edit/{id}', [KrsController::class, 'edit'])->name('krs.edit.form');
     Route::put('/krs/{id}', [KrsController::class, 'update'])->name('krs.edit');
     Route::delete('/krs/{id}', [KrsController::class, 'destroy'])->name('krs.delete');
@@ -122,9 +120,32 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // KRS DETAIL
     // =======================
     Route::get('/krs-detail', [KrsDetailController::class, 'index'])->name('krsdetail.index');
-    Route::get('/krs-detail-create', [KrsDetailController::class, 'create'])->name('krsdetail.add');
-    Route::post('/krs-detail-store', [KrsDetailController::class, 'store'])->name('krsdetail.save');
     Route::delete('/krs-detail/{id}', [KrsDetailController::class, 'destroy'])->name('krsdetail.delete');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| GENERAL AUTHENTICATED ROUTES (ACCESSIBLE BY ADMIN, MAHASISWA, DOSEN)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->group(function () {
+
+    // KRS ADMIN + MAHASISWA
+    Route::get('/krs-create', [KrsController::class, 'create'])
+        ->name('krs.add');
+
+    Route::post('/krs-store', [KrsController::class, 'store'])
+        ->name('krs.store');
+
+
+    // KRS DETAIL ADMIN + MAHASISWA
+    Route::get('/krs-detail-create', [KrsDetailController::class, 'create'])
+        ->name('krsdetail.add');
+
+    Route::post('/krs-detail-store', [KrsDetailController::class, 'store'])
+        ->name('krsdetail.save');
 
 });
 

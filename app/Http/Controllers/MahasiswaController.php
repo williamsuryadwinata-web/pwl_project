@@ -79,4 +79,3 @@ class MahasiswaController extends Controller
     return redirect()->action([MahasiswaController::class, 'index']);
 }
 }
-

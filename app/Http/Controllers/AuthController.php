@@ -67,8 +67,9 @@ class AuthController extends Controller
                 return redirect()->route('dashboard');
             }
 
+            // PERUBAHAN DI SINI: Dialihkan ke route dashboard
             if ($user->role == 'mahasiswa') {
-                return redirect()->route('krs.mahasiswa');
+                return redirect()->route('dashboard');
             }
 
             if ($user->role == 'dosen') {

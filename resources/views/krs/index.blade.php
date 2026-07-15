@@ -139,7 +139,7 @@
                 + Tambah KRS
             </a>
         @elseif(auth()->user()->role == 'mahasiswa')
-            <a href="{{ route('krs.mahasiswa.create') }}" class="btn-add">
+            <a href="{{ route('krs.add') }}" class="btn-add">
                 + Ajukan KRS
             </a>
         @endif
@@ -150,7 +150,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kode Mahasiswa</th>
+                    <th>Nama Mahasiswa</th>
                     <th>Tahun Ajaran</th>
                     <th>Semester</th>
                     <th>Status</th>
@@ -161,7 +161,7 @@
             @forelse($data as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->kode_mahasiswa }}</td>
+                    <td>{{ $item->mahasiswa->Fullname ?? '-' }}</td>
                     <td>{{ $item->tahun_ajaran }}</td>
                     <td>{{ ucfirst($item->semester) }}</td>
                     <td>

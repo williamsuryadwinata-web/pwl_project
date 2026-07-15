@@ -14,3 +14,4 @@ class KrsDetail extends Model
         'status'
     ];
 }
+

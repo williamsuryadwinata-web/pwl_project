@@ -36,7 +36,7 @@ class KrsDetailController extends Controller
             'status'     => 'pending'
         ]);
 
-        return redirect('/krs-detail')
-                ->with('success', 'Data KRS Detail berhasil ditambahkan.');
+        return redirect()->route('krsdetail.mahasiswa')
+            ->with('success', 'Data KRS Detail berhasil ditambahkan.');
     }
 }
