@@ -43,9 +43,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 */
 
 Route::middleware(['auth'])->group(function () {
-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
 });
 
 /*
@@ -139,7 +137,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/krs-store', [KrsController::class, 'store'])
         ->name('krs.store');
 
-
     // KRS DETAIL ADMIN + MAHASISWA
     Route::get('/krs-detail-create', [KrsDetailController::class, 'create'])
         ->name('krsdetail.add');
@@ -176,6 +173,20 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
 */
 
 Route::middleware(['auth', 'role:dosen'])->group(function () {
+
+    Route::get('/dosen/mahasiswa', [MahasiswaController::class, 'index'])->name('dosen.mahasiswa');
+
+    Route::get('/dosen/data-dosen', [DosenController::class, 'index'])->name('dosen.dosen');
+
+    Route::get('/dosen/jurusan', [JurusanController::class, 'index'])->name('dosen.jurusan');
+
+    Route::get('/dosen/matakuliah', [MatakuliahController::class, 'index'])->name('dosen.matakuliah');
+
+    Route::get('/dosen/kelas', [KelasController::class, 'index'])->name('dosen.kelas');
+
+    Route::get('/dosen/krs', [KrsController::class, 'index'])->name('dosen.krs');
+
+    Route::get('/dosen/krs-detail', [KrsDetailController::class, 'index'])->name('dosen.krsdetail');
 
     Route::get('/approval-krs', [KrsController::class, 'approval'])->name('approval.index');
 

@@ -140,10 +140,66 @@
 
                     @elseif(Auth::user()->role == 'dosen')
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">
-                                Kelas
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                Menu Academic
                             </a>
+
+                            <ul class="dropdown-menu shadow border-0 mt-2" style="border-radius:10px;">
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dosen.mahasiswa') }}">
+                                        Data Mahasiswa
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dosen.dosen') }}">
+                                        Data Dosen
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dosen.jurusan') }}">
+                                        Data Jurusan
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dosen.matakuliah') }}">
+                                        Mata Kuliah
+                                    </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider"></li>
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dosen.kelas') }}">
+                                        Kelas
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dosen.krs') }}">
+                                        KRS
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dosen.krsdetail') }}">
+                                        KRS Detail
+                                    </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider"></li>
+
+                                <li>
+                                    <a class="dropdown-item text-primary fw-bold" href="{{ route('approval.index') }}">
+                                        Approval KRS
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
 
                     @elseif(Auth::user()->role == 'mahasiswa')

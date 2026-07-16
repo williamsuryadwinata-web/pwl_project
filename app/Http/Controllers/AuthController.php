@@ -67,13 +67,13 @@ class AuthController extends Controller
                 return redirect()->route('dashboard');
             }
 
-            // PERUBAHAN DI SINI: Dialihkan ke route dashboard
             if ($user->role == 'mahasiswa') {
                 return redirect()->route('dashboard');
             }
 
+            // PERUBAHAN DI SINI: Dosen sekarang dialihkan ke route dashboard
             if ($user->role == 'dosen') {
-                return redirect()->route('approval.index');
+                return redirect()->route('dashboard');
             }
 
             Auth::logout();
